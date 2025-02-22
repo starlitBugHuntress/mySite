@@ -41,7 +41,7 @@ nav a:hover {
 }
 
 /* Games Container */
-.games-container {
+.container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -49,7 +49,7 @@ nav a:hover {
 }
 
 /* Game Card */
-.game-card {
+.card {
     background: rgba(0, 0, 0, 0.8);
     border: 2px solid #ff00ff;
     border-radius: 10px;
