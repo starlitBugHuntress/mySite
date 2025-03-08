@@ -269,3 +269,9 @@ footer {
     background: #00ffff;
     box-shadow: 0 0 15px #00ffff;
 }
+
+#form-status {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    color: #00ffff;
+}

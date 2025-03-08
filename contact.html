@@ -26,20 +26,22 @@
             <p>Have questions? Want to collaborate? Get in touch with me using the form below!</p>
             
             <!-- Contact Form -->
-            <form action="submit_form.php" method="POST" id="contact-form">
+            <form id="contact-form">
                 <label for="name">Your Name:</label>
                 <input type="text" id="name" name="name" required>
-                
+            
                 <label for="email">Your Email:</label>
                 <input type="email" id="email" name="email" required>
-                
+            
                 <label for="message">Your Message:</label>
                 <textarea id="message" name="message" rows="4" required></textarea>
-                
+            
                 <button type="submit">Send Message</button>
+            
+                <p id="form-status"></p>  <!-- For status messages like success or error -->
             </form>
         </section>
-        
+
         <footer>
             &copy; 2024 Starlit Bug Huntress | Built with ❤️ and vibes
         </footer>
