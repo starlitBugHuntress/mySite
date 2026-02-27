@@ -605,7 +605,7 @@
 
   <div class="projects-grid">
 
-    <div class="project-card fade-in" a href="https://starlitbughuntress.github.io/Accessibility-Project/" target="_blank">
+    <div class="project-card fade-in" data-href="https://starlitbughuntress.github.io/Accessibility-Project/" target="_blank">
       <p class="project-num">01 —</p>
       <h3 class="project-title">Accessible Web Showcase</h3>
       <p class="project-desc">
@@ -621,7 +621,7 @@
       </div>
     </div>
 
-    <div class="project-card fade-in" a href="https://starlitbughuntress.github.io/password-generator-attempt2/" target="_blank">
+    <div class="project-card fade-in" data-href="https://starlitbughuntress.github.io/password-generator-attempt2/" target="_blank">
       <p class="project-num">02 —</p>
       <h3 class="project-title">Password Generator</h3>
       <p class="project-desc">
@@ -635,7 +635,7 @@
       </div>
     </div>
 
-    <div class="project-card fade-in" a href="https://github.com/starlitBugHuntress/ReadMe-Generator" target="_blank">
+    <div class="project-card fade-in" data-href="https://github.com/starlitBugHuntress/ReadMe-Generator" target="_blank">
       <p class="project-num">03 —</p>
       <h3 class="project-title">README Generator</h3>
       <p class="project-desc">
@@ -651,7 +651,7 @@
       </div>
     </div>
 
-    <div class="project-card fade-in" a href="https://starlitbughuntress.github.io/Weather-Dashboard/">
+    <div class="project-card fade-in" data-href="https://starlitbughuntress.github.io/Weather-Dashboard/">
       <p class="project-num">04 —</p>
       <h3 class="project-title">Weather Dashboard</h3>
       <p class="project-desc">
@@ -667,7 +667,7 @@
       </div>
     </div>
 
-    <div class="project-card fade-in" a href="https://github.com/starlitBugHuntress/social-network-api" target="_blank">
+    <div class="project-card fade-in" data-href="https://github.com/starlitBugHuntress/social-network-api" target="_blank">
       <p class="project-num">05 —</p>
       <h3 class="project-title">Social Network API</h3>
       <p class="project-desc">
@@ -683,7 +683,7 @@
       </div>
     </div>
 
-    <div class="project-card fade-in" a href ="https://github.com/starlitBugHuntress/Surprise-Party" target="_blank">
+    <div class="project-card fade-in" data-href="https://github.com/starlitBugHuntress/Surprise-Party" target="_blank">
       <p class="project-num">06 —</p>
       <h3 class="project-title">Text-Based Adventure Game</h3>
       <p class="project-desc">
@@ -798,6 +798,13 @@
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.project-card[data-href]').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => {
+        window.open(card.dataset.href, '_blank');
+    });
+    });
 </script>
 </body>
 </html>
