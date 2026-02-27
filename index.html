@@ -1,123 +1,759 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starlit Bug Huntress</title>
-    <style>
-        /* Reset & Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jordan | @starlitBugHuntress</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #080b10;
+      --surface: #0d1117;
+      --border: #1e2d40;
+      --accent: #00d4ff;
+      --accent2: #7b61ff;
+      --text: #c9d5e0;
+      --muted: #4a6080;
+      --white: #eef4ff;
+      --mono: 'Share Tech Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #fff;
-            overflow-x: hidden;
-        }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        header {
-            padding: 20px;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.7);
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
-        }
+    html { scroll-behavior: smooth; }
 
-        header h1 {
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            color: #ff00ff;
-            text-shadow: 0 0 10px #ff00ff;
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      overflow-x: hidden;
+    }
 
-        nav {
-            margin-top: 10px;
-        }
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+    }
 
-        nav a {
-            margin: 0 15px;
-            color: #00ffff;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: color 0.3s;
-        }
+    /* ── GRID BACKGROUND ── */
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        nav a:hover {
-            color: #ff00ff;
-        }
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(8,11,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
 
-        .hero {
-            text-align: center;
-            padding: 100px 20px;
-            background: url('path-to-starfield.jpg') no-repeat center center/cover;
-        }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
 
-        .hero h2 {
-            font-size: 3rem;
-            text-shadow: 0 0 15px #00ffff;
-        }
+    .nav-logo span { color: var(--muted); }
 
-        .hero p {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            color: #ddd;
-        }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
 
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            color: #fff;
-            background: #ff00ff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-transform: uppercase;
-            text-decoration: none;
-            box-shadow: 0 0 10px #ff00ff;
-            transition: background 0.3s;
-        }
+    nav a {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
 
-        .btn:hover {
-            background: #00ffff;
-            box-shadow: 0 0 15px #00ffff;
-        }
+    nav a:hover { color: var(--accent); }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-    </style>
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 4rem;
+      padding-top: 5rem;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s forwards;
+    }
+
+    .hero-tag::before {
+      content: '// ';
+      color: var(--muted);
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--white);
+      opacity: 0;
+      animation: fadeUp 0.6s 0.4s forwards;
+    }
+
+    h1 .highlight {
+      color: transparent;
+      -webkit-text-stroke: 1px var(--accent);
+    }
+
+    .hero-sub {
+      font-family: var(--mono);
+      font-size: 1rem;
+      color: var(--muted);
+      margin-top: 1.5rem;
+      max-width: 520px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.6s forwards;
+    }
+
+    .hero-sub .accent { color: var(--accent2); }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.8s forwards;
+    }
+
+    .btn {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.8rem 2rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      border: 1px solid var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* glow orb */
+    .orb {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+      right: -100px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .orb2 {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(123,97,255,0.07) 0%, transparent 70%);
+      left: 20%;
+      bottom: 0;
+      pointer-events: none;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 6rem 4rem;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-label::before { content: '[ '; }
+    .section-label::after { content: ' ]'; }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      font-family: var(--mono);
+      color: var(--muted);
+      font-size: 0.9rem;
+      max-width: 560px;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+
+    /* ── STACK ── */
+    #stack .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .chip {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      padding: 0.5rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text);
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+      background: var(--surface);
+    }
+
+    .chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,212,255,0.05);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: rgba(0,212,255,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,212,255,0.06);
+    }
+
+    .project-card:hover::before { transform: scaleX(1); }
+
+    .project-num {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+
+    .project-desc {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
+      background: rgba(0,212,255,0.07);
+      border: 1px solid rgba(0,212,255,0.15);
+      color: var(--accent);
+      border-radius: 2px;
+    }
+
+    .tag.purple {
+      background: rgba(123,97,255,0.08);
+      border-color: rgba(123,97,255,0.2);
+      color: var(--accent2);
+    }
+
+    /* ── ABOUT ── */
+    #about .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 1rem;
+    }
+
+    .about-text p .hi { color: var(--accent); }
+    .about-text p .em { color: var(--white); }
+
+    .terminal {
+      background: #060a0f;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.r { background: #ff5f57; }
+    .dot.y { background: #febc2e; }
+    .dot.g { background: #28c840; }
+
+    .terminal-title {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-left: 0.5rem;
+    }
+
+    .terminal-body {
+      padding: 1.5rem;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 2;
+    }
+
+    .t-prompt { color: var(--accent); }
+    .t-cmd { color: var(--white); }
+    .t-out { color: var(--muted); }
+    .t-val { color: var(--accent2); }
+    .t-str { color: #7ec8a0; }
+
+    /* ── CONTACT ── */
+    #contact {
+      text-align: center;
+    }
+
+    #contact h2 { margin-bottom: 0.5rem; }
+
+    .contact-sub {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 4rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── CURSOR BLINK ── */
+    .blink {
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* ── SCROLLED-IN FADE ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      nav ul { gap: 1.5rem; }
+      #hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+      .divider { margin: 0 1.5rem; }
+      #about .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
 </head>
-
 <body>
-    <header>
-        <h1>Starlit Bug Huntress</h1>
-        <nav>
-            <a href="games.html">Games</a>
-            <a href="projects.html">Projects</a>
-            <a href="about.html">About Me</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-    </header>
 
-    <section class="hero">
-        <h2>Code. Create. Conquer.</h2>
-        <p>Exploring the digital cosmos, one binary star at a time.</p>
-        <a href="projects.html" class="btn">View My Work</a>
-    </section>
+<div class="grid-bg"></div>
 
-    <footer>
-        &copy; 2025 Starlit Bug Huntress | Built with ❤️ and vibes
-    </footer>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>~/</span>starlitBugHuntress</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://github.com/starlitBugHuntress" target="_blank">GitHub ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb"></div>
+  <div class="orb2"></div>
+  <p class="hero-tag">Full Stack Software Developer</p>
+  <h1>Jordan<br/><span class="highlight">Builds</span><br/>Things.</h1>
+  <p class="hero-sub">
+    From accessible frontends to NoSQL APIs — I write code that works, 
+    scales, and <span class="accent">actually runs</span>. Early career, 
+    high velocity.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View Projects</a>
+    <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- STACK -->
+<section id="stack">
+  <div class="fade-in">
+    <p class="section-label">Tech Stack</p>
+    <h2>Tools of<br/>the Trade</h2>
+    <p class="section-desc">The languages, frameworks, and tools I reach for when I need to get something built.</p>
+    <div class="chips">
+      <span class="chip">JavaScript</span>
+      <span class="chip">TypeScript</span>
+      <span class="chip">Python</span>
+      <span class="chip">Node.js</span>
+      <span class="chip">Express</span>
+      <span class="chip">React</span>
+      <span class="chip">Next.js</span>
+      <span class="chip">SQL</span>
+      <span class="chip">NoSQL / MongoDB</span>
+      <span class="chip">REST APIs</span>
+      <span class="chip">HTML / CSS</span>
+      <span class="chip">Git / GitHub</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="fade-in">
+    <p class="section-label">Projects</p>
+    <h2>Stuff I've<br/>Actually Built</h2>
+    <p class="section-desc">A range of projects across the stack — every one of them runs.</p>
+  </div>
+
+  <div class="projects-grid">
+
+    <div class="project-card fade-in" a href="https://starlitbughuntress.github.io/Accessibility-Project/" target="_blank">
+      <p class="project-num">01 —</p>
+      <h3 class="project-title">Accessible Web Showcase</h3>
+      <p class="project-desc">
+        A site built around the principle that the web belongs to everyone. Demonstrates semantic HTML, 
+        text-to-speech integration, and WCAG color contrast standards — because accessibility 
+        isn't an afterthought, it's architecture.
+      </p>
+      <div class="project-tags">
+        <span class="tag">HTML</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">WCAG</span>
+        <span class="tag">Web Speech API</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" a href="https://starlitbughuntress.github.io/password-generator-attempt2/" target="_blank">
+      <p class="project-num">02 —</p>
+      <h3 class="project-title">Password Generator</h3>
+      <p class="project-desc">
+        Collects user-defined password requirements via interactive prompts and generates 
+        a secure, customized password on demand. Clean logic, zero dependencies.
+      </p>
+      <div class="project-tags">
+        <span class="tag">JavaScript</span>
+        <span class="tag">DOM</span>
+        <span class="tag">User Input</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" a href="https://github.com/starlitBugHuntress/ReadMe-Generator" target="_blank">
+      <p class="project-num">03 —</p>
+      <h3 class="project-title">README Generator</h3>
+      <p class="project-desc">
+        CLI tool that scaffolds professional README files from the terminal. 
+        Prompts for project metadata and auto-generates structured markdown — 
+        the kind of thing every dev wishes existed when starting a new repo.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Node.js</span>
+        <span class="tag">CLI</span>
+        <span class="tag">Markdown</span>
+        <span class="tag purple">Inquirer</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" a href="https://starlitbughuntress.github.io/Weather-Dashboard/">
+      <p class="project-num">04 —</p>
+      <h3 class="project-title">Weather Dashboard</h3>
+      <p class="project-desc">
+        Real-time weather lookup for any city worldwide. Uses global state management 
+        to persist and display results across sessions. Demonstrates third-party API 
+        integration and dynamic DOM manipulation.
+      </p>
+      <div class="project-tags">
+        <span class="tag">JavaScript</span>
+        <span class="tag">REST API</span>
+        <span class="tag">Global State</span>
+        <span class="tag purple">OpenWeather</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" a href="https://github.com/starlitBugHuntress/social-network-api" target="_blank">
+      <p class="project-num">05 —</p>
+      <h3 class="project-title">Social Network API</h3>
+      <p class="project-desc">
+        Backend API for a social platform built on NoSQL — chosen deliberately to handle 
+        large volumes of unstructured data at scale. CRUD-ready routes for users, thoughts, 
+        and reactions.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Node.js</span>
+        <span class="tag">Express</span>
+        <span class="tag">MongoDB</span>
+        <span class="tag purple">NoSQL</span>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" a href ="https://github.com/starlitBugHuntress/Surprise-Party" target="_blank">
+      <p class="project-num">06 —</p>
+      <h3 class="project-title">Text-Based Adventure Game</h3>
+      <p class="project-desc">
+        A Python dungeon crawler where players navigate rooms, collect items, and 
+        strategically build an inventory to defeat the final boss. Pure logic, zero 
+        frameworks — just clean Python and a good time.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Game Logic</span>
+        <span class="tag">CLI</span>
+        <span class="tag purple">OOP</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner fade-in">
+    <div class="about-text">
+      <p class="section-label">About</p>
+      <h2>Hi, I'm<br/>Jordan.</h2>
+      <p>
+        <span class="em">Creative and capable full-stack developer</span> with a 
+        passion for building things that actually work. I care about the details 
+        that most people skip — like whether your site is accessible to <span class="hi">everyone</span>, 
+        not just people who can see perfectly.
+      </p>
+      <p>
+        I write JavaScript, Python, and everything in between. I'm comfortable on the 
+        frontend, at home in the backend, and <span class="em">confident picking the 
+        right tool for the job</span> — whether that's a relational database or a 
+        NoSQL store built to handle scale.
+      </p>
+      <p>
+        Early career. High curiosity. Always building.
+      </p>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot r"></span>
+        <span class="dot y"></span>
+        <span class="dot g"></span>
+        <span class="terminal-title">jordan.json</span>
+      </div>
+      <div class="terminal-body">
+        <span class="t-prompt">❯</span> <span class="t-cmd">cat jordan.json</span><br/>
+        <span class="t-out">{</span><br/>
+        &nbsp;&nbsp;<span class="t-str">"name"</span><span class="t-out">:</span> <span class="t-val">"Jordan"</span><span class="t-out">,</span><br/>
+        &nbsp;&nbsp;<span class="t-str">"handle"</span><span class="t-out">:</span> <span class="t-val">"@starlitBugHuntress"</span><span class="t-out">,</span><br/>
+        &nbsp;&nbsp;<span class="t-str">"role"</span><span class="t-out">:</span> <span class="t-val">"Full Stack Developer"</span><span class="t-out">,</span><br/>
+        &nbsp;&nbsp;<span class="t-str">"languages"</span><span class="t-out">: [</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"JavaScript"</span><span class="t-out">,</span> <span class="t-val">"Python"</span><span class="t-out">,</span> <span class="t-val">"SQL"</span><br/>
+        &nbsp;&nbsp;<span class="t-out">],</span><br/>
+        &nbsp;&nbsp;<span class="t-str">"cares_about"</span><span class="t-out">: [</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"accessibility"</span><span class="t-out">,</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"clean logic"</span><span class="t-out">,</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"code that ships"</span><br/>
+        &nbsp;&nbsp;<span class="t-out">],</span><br/>
+        &nbsp;&nbsp;<span class="t-str">"status"</span><span class="t-out">:</span> <span class="t-val">"open to opportunities"</span><br/>
+        <span class="t-out">}</span><br/>
+        <span class="t-prompt">❯ <span class="blink">█</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="fade-in">
+    <p class="section-label">Contact</p>
+    <h2>Let's Work Together</h2>
+    <p class="contact-sub">Open to junior dev roles, freelance, and collabs. Let's build something.</p>
+    <div class="contact-links">
+      <a href="https://github.com/starlitBugHuntress" target="_blank" class="btn btn-primary">GitHub ↗</a>
+      <a href="mailto:jnbarringer96@protonmail.com" class="btn btn-ghost">Send Email</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Jordan — <a href="https://github.com/starlitBugHuntress">@starlitBugHuntress</a></p>
+  <p>Built with HTML, CSS & intention.</p>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // stagger children
+        e.target.querySelectorAll('.fade-in').forEach((child, i) => {
+          child.style.transitionDelay = `${i * 0.1}s`;
+          child.classList.add('visible');
+        });
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
 </body>
-
 </html>
