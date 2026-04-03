@@ -1,4 +1,4 @@
-# Hey, I'm Jordan — @starlitBugHuntress 👾
+# Hey, I'm Jordan * @starlitBugHuntress 👾
 
 > **Creative and capable full-stack developer.** I build things that work, scale, and make the web more accessible for everyone.
 
@@ -33,10 +33,10 @@
 
 ## 🧠 A bit about me
 
-- 🌐 Full-stack dev comfortable from the DOM to the database
-- ♿ I care about **web accessibility** — the web should work for everyone
-- 🧩 I pick technologies intentionally — SQL when structure matters, NoSQL when scale does
-- 🐛 `@starlitBugHuntress` — the name says it all
+- 🌐 Full-stack web dev
+- ♿ I care about **web accessibility**
+- 🧩 I pick technologies intentionally. SQL when structure matters, NoSQL when scale does
+- 🐛 `@starlitBugHuntress`
 - 🚀 Early career, building fast, open to opportunities
 
 ---
@@ -46,6 +46,8 @@
 [![Portfolio](https://img.shields.io/badge/-Portfolio-0d1117?style=flat-square&logo=vercel)](https://starlitbughuntress.github.io/mySite/)
 [![Email](https://img.shields.io/badge/-Email-0d1117?style=flat-square&logo=gmail)](mailto:jnbarringer96@protonmail.com)
 
+I may take a few days to respond. Thank you for your patience.
+
 ---
 
-*"First make it work. Then make it right."*
+*Stay Inspired*
